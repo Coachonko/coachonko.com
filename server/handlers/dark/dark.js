@@ -36,10 +36,8 @@ export async function dark (elysiaContext) {
 
     const body = `<!DOCTYPE html>${page.replace('___app', app).replace('___styleTags', styleTags)}`
 
-    // TODO see if Elysia has a method to return a response without utilizing Response constructor.
-    return new Response(body, {
-      headers: { 'content-type': 'text/html' }
-    })
+    elysiaContext.set.headers['Content-Type'] = 'text/html'
+    return body
   } catch (err) {
     console.error(err)
   } finally {
