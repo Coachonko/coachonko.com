@@ -17,7 +17,7 @@ export function languageFromPathname (pathname) {
 
 // getCurrentLanguage returns the language of the route.
 // If currentRoute is `null`, returns default language.
-// If currentPath is provided, the languageis extracted by the path.
+// If currentPath is provided, the language is extracted by the path.
 export function getCurrentLanguage (currentRoute, currentPath) {
   if (detectIsNull(currentRoute)) {
     if (detectIsEmpty(currentPath)) {
@@ -42,21 +42,18 @@ export function matchRoute (path) {
 }
 
 // getHomePath returns the home path for the given language
-// The path returned is `/` for defaultLanguage and `/${language}/` for alternate languages.
+// Returns `/${language}/` for alternate languages.
+// Returns `/` for defaultLanguage and unsupported languages.
 export function getHomePath (language) {
   if (!detectIsString(language)) {
     throw new Error('language must be a string')
-  }
-
-  if (language === defaultLanguage) {
-    return '/'
   }
 
   if (isAlternateLanguage(language)) {
     return `/${language}/`
   }
 
-  throw new Error(`language ${language} is not supported`)
+  return '/'
 }
 
 function getBasePath (currentRoute) {
