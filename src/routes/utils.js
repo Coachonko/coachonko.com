@@ -34,7 +34,16 @@ export function getCurrentLanguage (currentRoute, currentPath) {
 export function getBasePathname (pathname) {
   for (let i = 1, len = languages.length; i < len; i++) {
     const language = languages[i]
-    const pathPrefix = `/${language}/`
+
+    // handle pathname from a homepage
+    // homepage path in the default language is /
+    // in alternate language it does not have a trailing slash
+    const homePath = `/${language}`
+    if (pathname === '/' || pathname === homePath) {
+      return '/'
+    }
+
+    const pathPrefix = `${homePath}/`
     if (pathname.startsWith(pathPrefix)) {
       return pathname.substring(pathPrefix.length - 1)
     }
