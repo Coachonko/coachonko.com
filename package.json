@@ -1,0 +1,28 @@
+{
+  "name": "coachonko.com",
+  "repository": "https://github.com/Coachonko/coachonko.com",
+  "license": "NCSA",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "clean": "rm -rf ./build",
+    "test": "bun test",
+    "build:common": "bun build ./src/index.jsx --public-path=/assets/ --outdir ./build --entry-naming [name].[ext] --splitting",
+    "build": "bun clean && bun run build:common --minify --sourcemap=external",
+    "dev:browser": "bun clean && bun run build:common --watch",
+    "dev:server": "bun run --watch ./server/index.js",
+    "start": "bun run ./server/index.js"
+  },
+  "devDependencies": {
+    "standard": "^17.1.0"
+  },
+  "dependencies": {
+    "@dark-engine/core": "^1.1.0",
+    "@dark-engine/platform-browser": "^1.1.0",
+    "@dark-engine/platform-server": "^1.1.0",
+    "@dark-engine/styled": "^1.1.0",
+    "@dark-engine/web-router": "^1.1.0",
+    "@wareme/translations": "3.7.0",
+    "elysia": "^1.0.13"
+  }
+}
