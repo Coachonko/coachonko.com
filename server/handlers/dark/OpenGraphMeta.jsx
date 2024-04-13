@@ -1,26 +1,24 @@
 import { component, detectIsUndefined } from '@dark-engine/core'
 
 import { config } from '../../../src/config'
-import { getMeta } from './utils'
 
 // https://ogp.me/
-const OpenGraphMeta = component(({ currentRoute, title, description }) => {
+const OpenGraphMeta = component(({ currentRoute, currentLanguage, getMetaWithLanguage, title, description }) => {
   const seoString = currentRoute.seo
   if (detectIsUndefined(seoString)) {
     return null
   }
 
-  const currentLanguage = currentRoute.language
   const currentUrl = `${config.BASE_URL}${currentRoute.path}`
-  const ogTitle = getMeta(currentRoute, 'ogTitle') || title
-  const ogType = getMeta(currentRoute, 'ogType')
-  const ogImage = getMeta(currentRoute, 'image')
+  const ogTitle = getMetaWithLanguage('ogTitle') || title
+  const ogType = getMetaWithLanguage('ogType')
+  const ogImage = getMetaWithLanguage('image')
   // TODO ogImageAlt
   if (detectIsUndefined(ogTitle) || detectIsUndefined(ogType) || detectIsUndefined(ogImage)) {
     return null
   }
 
-  const ogDescription = getMeta(currentRoute, 'ogDescription') || description
+  const ogDescription = getMetaWithLanguage('ogDescription') || description
   const siteName = config.NAME
   return (
     <>

@@ -4,7 +4,7 @@ import { metaContent } from './metaContent'
 import it from '../../../src/translations/messages/it'
 import en from '../../../src/translations/messages/en'
 
-export function getMeta (route, name) {
+export function getMeta (route, language, name) {
   const fallback = metaContent.fallback[name]
   if (detectIsNull(route)) {
     return fallback
@@ -20,7 +20,6 @@ export function getMeta (route, name) {
     return fallback
   }
 
-  const language = route.language
   const inLanguage = seoObject[language]
   if (detectIsUndefined(inLanguage)) {
     return fallback

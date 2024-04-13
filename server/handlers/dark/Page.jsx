@@ -15,8 +15,8 @@ const Page = component(({ currentPath, currentLanguage, title }) => {
         <base href='/' />
         <title>{title}</title>
 
-        <Meta currentRoute={currentRoute} title={title} />
-        <Canonical currentRoute={currentRoute} />
+        <Meta currentRoute={currentRoute} currentLanguage={currentLanguage} title={title} />
+        <Canonical currentRoute={currentRoute} currentLanguage={currentLanguage} />
         <LinkedData currentRoute={currentRoute} />
 
         <link rel='shortcut icon' href='/public/favicon.ico' />

@@ -7,17 +7,14 @@ import { dynamicMessagesLoading } from '../translations'
 
 const LanguageSelector = component(() => {
   const { pathname } = useLocation()
-
   const currentRoute = matchBaseRoute(pathname)
   if (detectIsNull(currentRoute)) {
     return null
   }
 
   const alternatePaths = getAlternatePaths(currentRoute)
-
   const { translator } = useTranslation()
-
-  const handleLanguageChange = (event) => {
+  const handleLanguageChange = (event) => { // TODO works the first change, then breaks. Must be fixed.
     const newLanguage = event.target.name
     dynamicMessagesLoading(translator, newLanguage)
   }

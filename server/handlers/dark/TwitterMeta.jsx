@@ -1,18 +1,22 @@
 import { component, detectIsUndefined } from '@dark-engine/core'
 
 import { config } from '../../../src/config'
-import { getMeta } from './utils'
 
 // https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/markup
-const TwitterMeta = component(({ currentRoute, title, description }) => {
+const TwitterMeta = component(({ currentRoute, getMetaWithLanguage, title, description }) => {
+  const seoString = currentRoute.seo
+  if (detectIsUndefined(seoString)) {
+    return null
+  }
+
   const twitterSite = config.TWITTER_USERNAME
   if (detectIsUndefined(twitterSite)) {
     return null
   }
 
-  const twitterTitle = getMeta(currentRoute, 'twitterTitle') || title
-  const twitterDescription = getMeta(currentRoute, 'twitterTitle') || description
-  const twitterImage = getMeta(currentRoute, 'image')
+  const twitterTitle = getMetaWithLanguage('twitterTitle') || title
+  const twitterDescription = getMetaWithLanguage('twitterTitle') || description
+  const twitterImage = getMetaWithLanguage('image')
   // TODO ogImageAlt
 
   return (

@@ -1,4 +1,4 @@
-import { component, detectIsNull } from '@dark-engine/core'
+import { component, detectIsNull, detectIsUndefined } from '@dark-engine/core'
 
 import { config } from '../../../src/config'
 
@@ -14,7 +14,12 @@ const LinkedData = component(({ currentRoute }) => {
     return null
   }
 
-  if (currentRoute.seo === 'contact') {
+  const seoString = currentRoute.seo
+  if (detectIsUndefined(seoString)) {
+    return null
+  }
+
+  if (seoString === 'contact') {
     const data = {
       '@context': 'https://schema.org',
       '@type': 'Person',

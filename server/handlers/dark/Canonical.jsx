@@ -1,17 +1,16 @@
-import { component, detectIsUndefined, detectIsNull } from '@dark-engine/core'
+import { component, detectIsNull } from '@dark-engine/core'
 
 import { config } from '../../../src/config'
 import { languages } from '../../../src/translations'
 import { getAlternatePaths } from '../../../src/routes'
 
-const Canonical = component(({ currentRoute }) => {
+const Canonical = component(({ currentRoute, currentLanguage }) => {
   if (detectIsNull(currentRoute)) {
     return null
   }
 
-  const currentLanguage = currentRoute.language
   const currentUrl = `${config.BASE_URL}${currentRoute.path}`
-  if (languages.length === 1 || detectIsUndefined(currentRoute.translated)) {
+  if (languages.length === 1) {
     return <link rel='canonical' href={currentUrl} />
   }
 
