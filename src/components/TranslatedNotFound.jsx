@@ -2,13 +2,13 @@ import { component, useEffect } from '@dark-engine/core'
 import { useLocation, useHistory } from '@dark-engine/web-router'
 
 import withAppRoute from '../components/withAppRoute'
-import { languageFromPathname } from '../routes'
+import { getLanguageFromPathname } from '../routes'
 import { defaultLanguage } from '../translations'
 
 const TranslatedNotFound = component(() => {
   const { pathname } = useLocation()
   let redirectPath = '/not-found'
-  const language = languageFromPathname(pathname)
+  const language = getLanguageFromPathname(pathname)
   if (language !== defaultLanguage) {
     redirectPath = `${language}${redirectPath}`
   }

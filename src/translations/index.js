@@ -3,7 +3,7 @@ export {
   dynamicMessagesLoading,
   isSupportedLanguage,
   isAlternateLanguage,
-  getRouteTitle,
+  getTitleFromPathname,
   getTitle,
   defaultLanguage
 } from './utils'

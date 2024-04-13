@@ -1,13 +1,11 @@
 import { component, useEffect } from '@dark-engine/core'
-import { useMatch } from '@dark-engine/web-router'
+import { useLocation } from '@dark-engine/web-router'
 
-import { getRouteTitle } from '../translations'
-import { matchBaseRoute } from '../routes'
+import { getTitleFromPathname } from '../translations'
 
 const ChangeTitle = component(() => {
-  const match = useMatch() // Note: useMatch must be used from within a route's slot.
-  const currentRoute = matchBaseRoute(match.path)
-  const title = getRouteTitle(currentRoute)
+  const { pathname } = useLocation()
+  const title = getTitleFromPathname(pathname)
   useEffect(() => { document.title = title })
   return null
 })

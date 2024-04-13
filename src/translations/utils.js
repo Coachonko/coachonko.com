@@ -2,6 +2,7 @@ import { detectIsUndefined, detectIsNull } from '@dark-engine/core'
 
 import { languages } from './languages'
 import { titles } from './titles'
+import { getLanguageFromPathname, matchBaseRoute } from '../routes/utils.js'
 
 export const defaultLanguage = languages[0]
 
@@ -46,18 +47,20 @@ export function getTitle (seoString, language) {
   return languageTitle
 }
 
-// getRouteTitle returns the title of the given route.
-export function getRouteTitle (route) {
-  if (detectIsNull(route)) {
+// getTitleFromPathname returns the title of the given pathname.
+export function getTitleFromPathname (pathname) {
+  const language = getLanguageFromPathname(pathname)
+  const baseRoute = matchBaseRoute(pathname)
+  if (detectIsNull(baseRoute)) {
     return getTitle()
   }
 
-  const seoString = route.seo
+  const seoString = baseRoute.seo
   if (detectIsUndefined(seoString)) {
     return getTitle()
   }
 
-  return getTitle(seoString, route.language)
+  return getTitle(seoString, language)
 }
 
 // Note: string literals are used so that Bun can import these files as assets.

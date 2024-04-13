@@ -3,9 +3,9 @@ import { detectIsString, detectIsNull, detectIsEmpty } from '@dark-engine/core'
 import { baseRoutes } from './baseRoutes'
 import { languages, defaultLanguage, isAlternateLanguage } from '../translations'
 
-// languageFromPathname returns the language from the pathname obtained with the useLocation hook.
+// getLanguageFromPathname returns the language from the pathname obtained with the useLocation hook.
 // If the pathname does not match any valid language, defaultLanguage is returned.
-export function languageFromPathname (pathname) {
+export function getLanguageFromPathname (pathname) {
   for (let i = 0, len = languages.length; i < len; i++) {
     const language = languages[i]
     if (pathname.startsWith(`/${language}`)) {
@@ -23,7 +23,7 @@ export function getCurrentLanguage (currentRoute, currentPath) {
     if (detectIsEmpty(currentPath)) {
       return defaultLanguage
     }
-    return languageFromPathname(currentPath)
+    return getLanguageFromPathname(currentPath)
   }
 
   const currentLanguage = currentRoute.language
@@ -31,6 +31,7 @@ export function getCurrentLanguage (currentRoute, currentPath) {
 }
 
 // getBasePathname removes the language prefix from a pathname if it is present.
+// It also handles the pathname of homepages, in which the prefix is the whole pathname.
 export function getBasePathname (pathname) {
   for (let i = 1, len = languages.length; i < len; i++) {
     const language = languages[i]

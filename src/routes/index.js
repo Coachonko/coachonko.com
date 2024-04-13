@@ -1,7 +1,7 @@
 export { baseRoutes } from './baseRoutes'
 export { routes } from './generation'
 export {
-  languageFromPathname,
+  getLanguageFromPathname,
   matchBaseRoute,
   getHomePath,
   getCurrentLanguage,

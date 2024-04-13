@@ -3,7 +3,7 @@ import { ServerStyleSheet } from '@dark-engine/styled/server'
 import { Translator } from '@wareme/translations'
 
 import { getCurrentLanguage, matchBaseRoute } from '../../../src/routes'
-import { getRouteTitle } from '../../../src/translations'
+import { getTitleFromPathname } from '../../../src/translations'
 import { getMessagesSync } from './utils'
 import App from '../../../src/components/App'
 import Page from './Page'
@@ -14,7 +14,7 @@ export async function dark (elysiaContext) {
   const currentLanguage = getCurrentLanguage(currentRoute, currentPath)
   const messages = getMessagesSync(currentLanguage)
   const translator = new Translator(currentLanguage, messages)
-  const title = getRouteTitle(currentRoute)
+  const title = getTitleFromPathname(currentPath)
   const sheet = new ServerStyleSheet()
 
   try {
