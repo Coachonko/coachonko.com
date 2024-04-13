@@ -1,6 +1,6 @@
 import { detectIsNull, detectIsString, detectIsUndefined } from '@dark-engine/core'
 
-import { routes, getAlternatePaths } from '../src/routes'
+import { baseRoutes, getAlternatePaths } from '../src/routes'
 import { config } from '../src/config'
 import { gzipFile } from './utils'
 
@@ -47,8 +47,8 @@ async function generateStaticPagesSitemap (paths) {
       <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
       xmlns:xhtml="http://www.w3.org/1999/xhtml">`)
 
-  for (let i = 0, len = routes.length; i < len; i++) {
-    const route = routes[i]
+  for (let i = 0, len = baseRoutes.length; i < len; i++) {
+    const route = baseRoutes[i]
     // Skip routes that aren't meant to be indexed
     if (detectIsUndefined(route.seo)) {
       continue
