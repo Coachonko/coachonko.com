@@ -78,10 +78,10 @@ export function getAlternatePaths (currentRoute) {
 
   const result = {}
   const basePath = getBasePath(currentRoute)
-  result[defaultLanguage] = `/${basePath}`
+  result[defaultLanguage] = `${basePath}`
   for (let i = 1, len = languages.length; i < len; i++) {
     const language = languages[i]
-    result[language] = `/${language}/${basePath}`
+    result[language] = `/${language}${basePath}`
   }
   return result
 }
