@@ -2,23 +2,20 @@ import { component, detectIsNull } from '@dark-engine/core'
 import { RouterLink, useLocation } from '@dark-engine/web-router'
 import { useTranslation } from '@wareme/translations'
 
-import { getAlternatePaths, matchRoute } from '../routes'
+import { getAlternatePaths, matchBaseRoute } from '../routes'
 import { dynamicMessagesLoading } from '../translations'
 
 const LanguageSelector = component(() => {
   const { pathname } = useLocation()
 
-  const currentRoute = matchRoute(pathname)
+  const currentRoute = matchBaseRoute(pathname)
   if (detectIsNull(currentRoute)) {
     return null
   }
 
   const alternatePaths = getAlternatePaths(currentRoute)
-  if (detectIsNull(alternatePaths)) {
-    return null
-  }
 
-  const { t, translator } = useTranslation('languageSelector')
+  const { translator } = useTranslation()
 
   const handleLanguageChange = (event) => {
     const newLanguage = event.target.name
@@ -39,7 +36,6 @@ const LanguageSelector = component(() => {
     )
   }
 
-  result.push(<p>{t('test')}</p>)
   return result
 })
 

@@ -1,6 +1,6 @@
-import { detectIsUndefined, detectIsString, detectIsNull, detectIsEmpty } from '@dark-engine/core'
+import { detectIsString, detectIsNull, detectIsEmpty } from '@dark-engine/core'
 
-import { routes } from './generation'
+import { baseRoutes } from './baseRoutes'
 import { languages, defaultLanguage, isAlternateLanguage } from '../translations'
 
 // languageFromPathname returns the language from the pathname obtained with the useLocation hook.
@@ -30,11 +30,24 @@ export function getCurrentLanguage (currentRoute, currentPath) {
   return currentLanguage
 }
 
-// matchRoute returns a superRoute if path matches superRoute.path exactly. Returns null otherwise.
-export function matchRoute (path) {
-  for (let i = 0, len = routes.length; i < len; i++) {
-    const route = routes[i]
-    if (path === route.path) {
+// getBasePathname removes the language prefix from a pathname if it is present.
+export function getBasePathname (pathname) {
+  for (let i = 1, len = languages.length; i < len; i++) {
+    const language = languages[i]
+    const pathPrefix = `/${language}/`
+    if (pathname.startsWith(pathPrefix)) {
+      return pathname.substring(pathPrefix.length - 1)
+    }
+  }
+  return pathname
+}
+
+// matchBaseRoute returns a baseRoute if path matches baseRoute.path. Returns null otherwise.
+export function matchBaseRoute (pathname) {
+  for (let i = 0, len = baseRoutes.length; i < len; i++) {
+    const route = baseRoutes[i]
+    const basePathname = getBasePathname(pathname)
+    if (basePathname === route.path) {
       return route
     }
   }
@@ -56,28 +69,11 @@ export function getHomePath (language) {
   return '/'
 }
 
-function getBasePath (currentRoute) {
-  const currentPath = currentRoute.path
-  const currentLanguage = currentRoute.language
-  if (currentLanguage === defaultLanguage) {
-    return currentPath
-  }
-
-  const numberOfCharacters = `/${currentLanguage}`.length
-  const basePath = currentPath.slice(numberOfCharacters)
-  return basePath
-}
-
 // getAlternatePaths returns all paths for a translated route.
 // Paths returned are absolute.
-// Returns `null` if route is not translated.
-export function getAlternatePaths (currentRoute) {
-  if (detectIsUndefined(currentRoute.translated)) {
-    return null
-  }
-
+export function getAlternatePaths (currentBaseRoute) {
   const result = {}
-  const basePath = getBasePath(currentRoute)
+  const basePath = currentBaseRoute.path
   result[defaultLanguage] = `${basePath}`
   for (let i = 1, len = languages.length; i < len; i++) {
     const language = languages[i]

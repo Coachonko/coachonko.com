@@ -8,7 +8,6 @@ import ScrollToTop from './ScrollToTop'
 const GlobalStyle = createGlobalStyle``
 
 const Root = component(({ slot }) => {
-  console.log('root rendered')
   return (
     <>
       <GlobalStyle />

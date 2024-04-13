@@ -1,4 +1,4 @@
-import { join } from 'node:path'
+import { join } from 'bun:path'
 
 const doubleExtension = ['gz', 'map']
 
@@ -55,17 +55,13 @@ export async function staticFile (elysiaContext, prefixPath) {
   // prevent relative path abuse
   const allowedBasePath = join(process.cwd(), directory)
   if (!absolutePath.startsWith(allowedBasePath)) {
-    // elysiaContext.set.status = 403
-    // return 'Forbidden'
-    return elysiaContext.error(403)
+    return elysiaContext.error(403) // 'Forbidden'
   }
 
   const file = Bun.file(absolutePath)
 
   if (file.size === 0) {
-    // elysiaContext.set.status = 404
-    // return 'Not found'
-    return elysiaContext.error(404)
+    return elysiaContext.error(404) // 'Not found'
   }
 
   const fileStream = await file.stream()

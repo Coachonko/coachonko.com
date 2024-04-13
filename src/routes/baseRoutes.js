@@ -1,6 +1,5 @@
 import { lazy } from '@dark-engine/core'
 
-// mark a route with `translated` to register translated paths.
 // add a `seo` string to generate SEO-optimized head elements on the server.
 export const baseRoutes = [
   {
