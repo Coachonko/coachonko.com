@@ -1,15 +1,14 @@
 import { component, detectIsNull } from '@dark-engine/core'
-import { RouterLink, useMatch } from '@dark-engine/web-router'
+import { RouterLink, useLocation } from '@dark-engine/web-router'
 import { useTranslation } from '@wareme/translations'
 
 import { getAlternatePaths, matchRoute } from '../routes'
 import { dynamicMessagesLoading } from '../translations'
 
 const LanguageSelector = component(() => {
-  const { path } = useMatch()
+  const { pathname } = useLocation()
 
-  const currentPath = path
-  const currentRoute = matchRoute(currentPath)
+  const currentRoute = matchRoute(pathname)
   if (detectIsNull(currentRoute)) {
     return null
   }

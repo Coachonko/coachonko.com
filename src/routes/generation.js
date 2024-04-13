@@ -4,10 +4,10 @@ import { baseRoutes } from './routes'
 import { languages, defaultLanguage } from '../translations'
 
 function generateTranslatedPath (basePath, language) {
-  if (basePath === '') {
-    return `${language}`
+  if (basePath === '/') {
+    return `/${language}`
   }
-  return `${language}/${basePath}`
+  return `/${language}${basePath}`
 }
 
 function generateTranslatedRoutes (baseRoute) {
