@@ -36,14 +36,6 @@ const LanguageSelector = component(() => {
     )
   }
 
-  // despite alternatePaths being resolved correctly the following things happen:
-  // to prop is rendered wrong: leads to wrong paths
-  // the link doesn't work
-  // the link triggers a full page refresh
-  //
-  // it looks like I can't go from /it/contact to /contact, or from /it to /
-  // to reproduce: request / -> click RouterLink to /it. Notice a full page refresh
-  // then links to english pages do not work
   return result
 })
 

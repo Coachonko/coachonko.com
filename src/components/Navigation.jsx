@@ -1,7 +1,8 @@
 import { component } from '@dark-engine/core'
 import { RouterLink, useLocation } from '@dark-engine/web-router'
 
-import { getHomePath, getLanguageFromPathname } from '../routes'
+import { getHomePath } from '../routes'
+import { getLanguageFromPathname } from '../translations'
 import LanguageSelector from './LanguageSelector'
 
 const Navigation = component(({ slot }) => {

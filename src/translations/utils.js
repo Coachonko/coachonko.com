@@ -2,9 +2,13 @@ import { detectIsUndefined, detectIsNull } from '@dark-engine/core'
 
 import { languages } from './languages'
 import { titles } from './titles'
-import { getLanguageFromPathname, matchBaseRoute } from '../routes/utils.js'
+import { matchBaseRoute } from '../routes/utils.js'
 
 export const defaultLanguage = languages[0]
+
+export function isDefaultLanguage (language) {
+  return language === defaultLanguage
+}
 
 export function isSupportedLanguage (language) {
   for (let i = 0, len = languages.length; i < len; i++) {
@@ -45,6 +49,18 @@ export function getTitle (seoString, language) {
   }
 
   return languageTitle
+}
+
+// getLanguageFromPathname returns the language from the pathname obtained with the useLocation hook.
+// If the pathname does not match any valid language, defaultLanguage is returned.
+export function getLanguageFromPathname (pathname) {
+  for (let i = 0, len = languages.length; i < len; i++) {
+    const language = languages[i]
+    if (pathname.startsWith(`/${language}`)) {
+      return language
+    }
+  }
+  return defaultLanguage
 }
 
 // getTitleFromPathname returns the title of the given pathname.

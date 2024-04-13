@@ -1,10 +1,12 @@
 import { component } from '@dark-engine/core'
 
+import { matchBaseRoute } from '../../../src/routes'
 import LinkedData from './LinkedData'
 import Canonical from './Canonical'
 import Meta from './Meta'
 
-const Page = component(({ currentRoute, currentLanguage, title }) => {
+const Page = component(({ currentPath, currentLanguage, title }) => {
+  const currentRoute = matchBaseRoute(currentPath)
   return (
     <html lang={currentLanguage}>
       <head>

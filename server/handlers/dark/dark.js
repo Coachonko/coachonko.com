@@ -2,16 +2,14 @@ import { renderToString } from '@dark-engine/platform-server'
 import { ServerStyleSheet } from '@dark-engine/styled/server'
 import { Translator } from '@wareme/translations'
 
-import { getCurrentLanguage, matchBaseRoute } from '../../../src/routes'
-import { getTitleFromPathname } from '../../../src/translations'
+import { getLanguageFromPathname, getTitleFromPathname } from '../../../src/translations'
 import { getMessagesSync } from './utils'
 import App from '../../../src/components/App'
 import Page from './Page'
 
 export async function dark (elysiaContext) {
   const currentPath = elysiaContext.path
-  const currentRoute = matchBaseRoute(currentPath)
-  const currentLanguage = getCurrentLanguage(currentRoute, currentPath)
+  const currentLanguage = getLanguageFromPathname(currentPath)
   const messages = getMessagesSync(currentLanguage)
   const translator = new Translator(currentLanguage, messages)
   const title = getTitleFromPathname(currentPath)
@@ -28,7 +26,7 @@ export async function dark (elysiaContext) {
 
     const page = await renderToString(
       <Page
-        currentRoute={currentRoute}
+        currentPath={currentPath}
         currentLanguage={currentLanguage}
         title={title}
       />

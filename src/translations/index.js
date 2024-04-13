@@ -1,10 +1,12 @@
 export {
-  getMessages,
+  defaultLanguage,
   dynamicMessagesLoading,
-  isSupportedLanguage,
-  isAlternateLanguage,
-  getTitleFromPathname,
+  getMessages,
   getTitle,
-  defaultLanguage
+  getLanguageFromPathname,
+  getTitleFromPathname,
+  isAlternateLanguage,
+  isDefaultLanguage,
+  isSupportedLanguage
 } from './utils'
 export { languages } from './languages'
