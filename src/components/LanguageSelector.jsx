@@ -36,6 +36,10 @@ const LanguageSelector = component(() => {
     )
   }
 
+  // despite alternatePaths being resolved correctly the following things happen:
+  // to prop is rendered wrong: leads to wrong paths
+  // the link doesn't work
+  // the link triggers a full page refresh
   return result
 })
 
