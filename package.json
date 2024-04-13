@@ -17,11 +17,11 @@
     "standard": "^17.1.0"
   },
   "dependencies": {
-    "@dark-engine/core": "^1.1.0",
-    "@dark-engine/platform-browser": "^1.1.0",
-    "@dark-engine/platform-server": "^1.1.0",
-    "@dark-engine/styled": "^1.1.0",
-    "@dark-engine/web-router": "^1.1.0",
+    "@dark-engine/core": "^1.1.1",
+    "@dark-engine/platform-browser": "^1.1.1",
+    "@dark-engine/platform-server": "^1.1.1",
+    "@dark-engine/styled": "^1.1.1",
+    "@dark-engine/web-router": "^1.1.1",
     "@wareme/translations": "3.7.0",
     "elysia": "^1.0.13"
   }

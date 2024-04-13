@@ -1,7 +1,6 @@
 import { component } from '@dark-engine/core'
 import { useTranslation } from '@wareme/translations'
 
-import withAppRoute from '../components/withAppRoute'
 import LanguageSelector from '../components/LanguageSelector'
 
 const NotFound = component(() => {
@@ -15,4 +14,4 @@ const NotFound = component(() => {
   )
 })
 
-export default withAppRoute(NotFound)
+export default NotFound

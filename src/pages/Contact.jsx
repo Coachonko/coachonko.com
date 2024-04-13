@@ -1,6 +1,5 @@
 import { component } from '@dark-engine/core'
 
-import withAppRoute from '../components/withAppRoute'
 import LanguageSelector from '../components/LanguageSelector'
 
 const Contact = component(() => {
@@ -12,4 +11,4 @@ const Contact = component(() => {
   )
 })
 
-export default withAppRoute(Contact)
+export default Contact

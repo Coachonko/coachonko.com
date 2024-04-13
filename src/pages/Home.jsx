@@ -1,6 +1,5 @@
 import { component } from '@dark-engine/core'
 
-import withAppRoute from '../components/withAppRoute'
 import LanguageSelector from '../components/LanguageSelector'
 
 const Home = component(() => {
@@ -11,4 +10,4 @@ const Home = component(() => {
   )
 })
 
-export default withAppRoute(Home)
+export default Home
