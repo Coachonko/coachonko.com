@@ -13,8 +13,10 @@ const LanguageSelector = component(() => {
   }
 
   const alternatePaths = getAlternatePaths(currentRoute)
-  const { translator } = useTranslation()
-  const handleLanguageChange = (event) => { // TODO works the first change, then breaks. Must be fixed.
+  const { t, translator } = useTranslation()
+  const handleLanguageChange = (event) => {
+    // TODO works the first change, then breaks. Must be fixed.
+    // Only affects <main>. Investigate further.
     const newLanguage = event.target.name
     dynamicMessagesLoading(translator, newLanguage)
   }
@@ -33,7 +35,12 @@ const LanguageSelector = component(() => {
     )
   }
 
-  return result
+  return (
+    <>
+      <p>{t('home.subtitle')}</p>
+      {result}
+    </>
+  )
 })
 
 export default LanguageSelector

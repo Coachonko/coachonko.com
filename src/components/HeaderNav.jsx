@@ -5,25 +5,19 @@ import { getHomePath } from '../routes'
 import { getLanguageFromPathname } from '../translations'
 import LanguageSelector from './LanguageSelector'
 
-const Navigation = component(({ slot }) => {
+const HeaderNav = component(() => {
   const { pathname } = useLocation()
   const currentLanguage = getLanguageFromPathname(pathname)
   const homePath = getHomePath(currentLanguage)
 
   return (
-    <>
-      <nav>
-        <RouterLink to={`${homePath}`}>Home</RouterLink>
-        <RouterLink to={`${homePath}contact`}>Contact</RouterLink>
-        <RouterLink to={`${homePath}bruv`}>NotFound</RouterLink>
-        <LanguageSelector />
-      </nav>
-      {slot}
-      <footer>
-        footer
-      </footer>
-    </>
+    <nav>
+      <RouterLink to={`${homePath}`}>Home</RouterLink>
+      <RouterLink to={`${homePath}contact`}>Contact</RouterLink>
+      <RouterLink to={`${homePath}bruv`}>NotFound</RouterLink>
+      <LanguageSelector />
+    </nav>
   )
 })
 
-export default Navigation
+export default HeaderNav

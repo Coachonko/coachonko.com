@@ -2,8 +2,10 @@ import { component } from '@dark-engine/core'
 import { createGlobalStyle } from '@dark-engine/styled'
 
 import ChangeTitle from './ChangeTitle'
-import Navigation from './Navigation'
 import ScrollToTop from './ScrollToTop'
+import HeaderNav from './HeaderNav'
+import Copyright from './Copyright'
+import FooterNav from './FooterNav'
 
 const GlobalStyle = createGlobalStyle``
 
@@ -13,9 +15,16 @@ const Root = component(({ slot }) => {
       <GlobalStyle />
       <ChangeTitle />
       <ScrollToTop />
-      <Navigation>
+      <header>
+        <HeaderNav />
+      </header>
+      <main>
         {slot}
-      </Navigation>
+      </main>
+      <footer>
+        <FooterNav />
+        <Copyright />
+      </footer>
     </>
   )
 })

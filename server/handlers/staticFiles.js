@@ -64,9 +64,6 @@ export async function staticFile (elysiaContext, prefixPath) {
     return elysiaContext.error(404) // 'Not found'
   }
 
-  const fileStream = await file.stream()
-  const contentType = getAppropriateContentType(filePath)
-  return new Response(fileStream, {
-    headers: { 'Content-Type': contentType }
-  })
+  // elysiaContext.set.headers['Content-Type'] = getAppropriateContentType(filePath)
+  return file
 }
