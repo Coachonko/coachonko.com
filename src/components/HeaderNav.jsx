@@ -1,5 +1,5 @@
 import { component } from '@dark-engine/core'
-import { RouterLink, useLocation } from '@dark-engine/web-router'
+import { Link, useLocation } from '@dark-engine/web-router'
 
 import { getHomePath } from '../routes'
 import { getLanguageFromPathname } from '../translations'
@@ -12,10 +12,10 @@ const HeaderNav = component(() => {
 
   return (
     <nav>
-      <RouterLink to={`${homePath}`}>Home</RouterLink>
-      <RouterLink to={`${homePath}contact`}>Contact</RouterLink>
-      <RouterLink to={`${homePath}bruv`}>NotFound</RouterLink>
-      <LanguageSelector />
+      <Link to={`${homePath}`}>Home</Link>
+      <Link to={`${homePath}contact`}>Contact</Link>
+      <Link to={`${homePath}bruv`}>NotFound</Link>
+      {/* <LanguageSelector /> */}
     </nav>
   )
 })

@@ -28,7 +28,10 @@ const Home = component(() => {
   //
   // 4. click the IT link: home component rerenders once, translation changes to wrong language <- same as above, renders with old t
 
-  // The problem is that the component renders before the event fires, but subscribes after the event has already fired.
+  // The problem is as follows:
+  // 1. the component renders before the event fires
+  // 2. the translator instance changes state and emits events
+  // 3. the component subscribes to the event emitter after the event has already fired
   // The log never shows 'onLanguageChanged fired' because while the event is fired, the component isn't listening.
   console.log('rerendered')
 

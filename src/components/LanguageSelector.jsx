@@ -1,5 +1,5 @@
 import { component, detectIsNull } from '@dark-engine/core'
-import { RouterLink, useLocation } from '@dark-engine/web-router'
+import { Link, useLocation } from '@dark-engine/web-router'
 import { useTranslation } from '@wareme/translations'
 
 import { getAlternatePaths, matchBaseRoute } from '../routes'
@@ -15,8 +15,6 @@ const LanguageSelector = component(() => {
   const alternatePaths = getAlternatePaths(currentRoute)
   const { translator } = useTranslation()
   const handleLanguageChange = (event) => {
-    // TODO works the first change, then breaks. Must be fixed.
-    // Only affects <main>. Investigate further.
     const newLanguage = event.target.name
     dynamicMessagesLoading(translator, newLanguage)
   }
@@ -25,13 +23,13 @@ const LanguageSelector = component(() => {
   for (const language in alternatePaths) {
     // mark active here if language === currentLanguage
     result.push(
-      <RouterLink
+      <Link
         to={alternatePaths[language]}
         name={language}
         // className={}
         onClick={handleLanguageChange}
       >{language.toUpperCase()}
-      </RouterLink>
+      </Link>
     )
   }
 

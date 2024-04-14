@@ -5,7 +5,7 @@ import LanguageSelector from './LanguageSelector'
 const FooterNav = component(() => {
   return (
     <nav>
-      <LanguageSelector />
+      {/* <LanguageSelector /> */}
     </nav>
   )
 })
