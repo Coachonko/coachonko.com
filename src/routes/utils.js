@@ -57,10 +57,17 @@ export function getHomePath (language) {
 export function getAlternatePaths (currentBaseRoute) {
   const result = {}
   const basePath = currentBaseRoute.path
-  result[defaultLanguage] = `${basePath}`
-  for (let i = 1, len = languages.length; i < len; i++) {
-    const language = languages[i]
-    result[language] = `/${language}${basePath}`
+  result[defaultLanguage] = basePath
+  if (basePath === '/') {
+    for (let i = 1, len = languages.length; i < len; i++) {
+      const language = languages[i]
+      result[language] = `/${language}`
+    }
+  } else {
+    for (let i = 1, len = languages.length; i < len; i++) {
+      const language = languages[i]
+      result[language] = `/${language}${basePath}`
+    }
   }
   return result
 }
