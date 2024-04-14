@@ -1,4 +1,4 @@
-import { detectIsNull, detectIsString, detectIsUndefined } from '@dark-engine/core'
+import { detectIsString, detectIsUndefined } from '@dark-engine/core'
 
 import { baseRoutes, getAlternatePaths } from '../src/routes'
 import { config } from '../src/config'
@@ -60,22 +60,18 @@ async function generateStaticPagesSitemap (paths) {
     }
 
     const alternatePaths = getAlternatePaths(route)
-    if (detectIsNull(alternatePaths)) {
-      writer.write(`<url><loc>${config.BASE_URL}${route.path}</loc></url>`)
-    } else {
-      for (const language in alternatePaths) {
-        writer.write(`<url>
+    for (const language in alternatePaths) {
+      writer.write(`<url>
               <loc>${config.BASE_URL}${alternatePaths[language]}</loc>`)
-        let alternates = ''
-        for (const alternateLanguage in alternatePaths) {
-          alternates += `<xhtml:link
+      let alternates = ''
+      for (const alternateLanguage in alternatePaths) {
+        alternates += `<xhtml:link
                 rel="alternate"
                 hreflang="${alternateLanguage}"
                 href="${config.BASE_URL}${alternatePaths[alternateLanguage]}"/>`
-        }
-        writer.write(alternates)
-        writer.write('</url>')
       }
+      writer.write(alternates)
+      writer.write('</url>')
     }
   }
   writer.write('</urlset>')
