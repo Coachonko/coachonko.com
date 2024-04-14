@@ -22,7 +22,7 @@
     "@dark-engine/platform-server": "^1.2.0",
     "@dark-engine/styled": "^1.2.0",
     "@dark-engine/web-router": "^1.2.0",
-    "@wareme/translations": "3.7.0",
+    "@wareme/translations": "3.7.2",
     "elysia": "^1.0.13"
   }
 }

@@ -15,7 +15,7 @@ const HeaderNav = component(() => {
       <Link to={`${homePath}`}>Home</Link>
       <Link to={`${homePath}contact`}>Contact</Link>
       <Link to={`${homePath}bruv`}>NotFound</Link>
-      {/* <LanguageSelector /> */}
+      <LanguageSelector />
     </nav>
   )
 })
