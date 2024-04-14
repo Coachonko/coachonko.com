@@ -11,14 +11,12 @@
 - linked data
 
 #### Bugs
-- Changing language weird behavior
+
+
 
 ### Optimizations
 
-- gzip
-  - serve gzipped files when available
-  - compress `build` and `public` files when requested if not gzipped already
-  - disable this feature during development
+- gzip `js` and `xml` files in `build` and `public` at build time. Configure reverse proxy to serve.
 - more tests
 
 ### Will figure it out
