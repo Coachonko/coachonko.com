@@ -13,7 +13,7 @@ const LanguageSelector = component(() => {
   }
 
   const alternatePaths = getAlternatePaths(currentRoute)
-  const { t, translator } = useTranslation()
+  const { translator } = useTranslation()
   const handleLanguageChange = (event) => {
     // TODO works the first change, then breaks. Must be fixed.
     // Only affects <main>. Investigate further.
@@ -35,12 +35,7 @@ const LanguageSelector = component(() => {
     )
   }
 
-  return (
-    <>
-      <p>{t('home.subtitle')}</p>
-      {result}
-    </>
-  )
+  return result
 })
 
 export default LanguageSelector
