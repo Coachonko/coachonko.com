@@ -93,12 +93,12 @@ export async function getMessages (lang) {
 }
 
 export async function dynamicMessagesLoading (translatorInstance, newLanguage) {
-  const changeLanguage = translatorInstance.changeLanguage
-  const localeData = translatorInstance.localeData
+  const { changeLanguage, localeData } = translatorInstance
   // do not load anything if locale data was already loaded.
   for (let i = 0, len = localeData.length; i < len; i++) {
     if (localeData[i].language === newLanguage) {
-      return changeLanguage(newLanguage)
+      changeLanguage(newLanguage)
+      return
     }
   }
 
