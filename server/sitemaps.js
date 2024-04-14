@@ -2,7 +2,6 @@ import { detectIsString, detectIsUndefined } from '@dark-engine/core'
 
 import { baseRoutes, getAlternatePaths } from '../src/routes'
 import { config } from '../src/config'
-import { gzipFile } from './utils'
 
 export async function generateSitemaps () {
   const paths = {
@@ -35,8 +34,6 @@ async function generateSitemapIndex (paths) {
   }
   writer.write('</sitemapindex>')
   writer.end()
-
-  await gzipFile(indexPath)
 }
 
 async function generateStaticPagesSitemap (paths) {
@@ -76,6 +73,4 @@ async function generateStaticPagesSitemap (paths) {
   }
   writer.write('</urlset>')
   writer.end()
-
-  await gzipFile(staticPath)
 }
