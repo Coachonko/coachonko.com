@@ -7,8 +7,8 @@
   - ~~language matching~~
 - ~~styled~~
 - ~~i18n solution~~
-- sitemaps
-- linked data
+- ~~sitemaps~~
+- ~~linked data~~
 
 #### Bugs
 
