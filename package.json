@@ -7,7 +7,9 @@
   "scripts": {
     "clean": "rm -rf ./build",
     "test": "bun test",
-    "sitemaps": "bun run ./scripts/sitemaps.js",
+    "sitemaps:generate": "bun run ./scripts/sitemaps.js",
+    "sitemaps:minify": "for file in .\/build\/*.xml; do awk '{gsub(\/>\\s+<\/,\"><\")}1' \"$file\" | tr -s ' ' | tr -d '\\n' | sed 's\/> *<\/><\/g' > \"$file.tmp\" && mv \"$file.tmp\" \"$file\"; done",
+    "sitemaps": "bun run sitemaps:generate && bun run sitemaps:minify",
     "compress": "find ./build -type f \\( -name '*.xml' -o -name '*.js' -o -name '*.js.map' \\) -exec gzip --keep --best {} \\;",
     "copy:public": "cp -r public/* build/",
     "build:common": "bun build ./src/index.jsx --outdir ./build/assets --public-path /assets/ --entry-naming [name].[ext] --splitting",
