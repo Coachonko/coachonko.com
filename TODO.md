@@ -16,7 +16,6 @@
 
 ### Optimizations
 
-- gzip `js` and `xml` files in `build` and `public` at build time. Configure reverse proxy to serve.
 - more tests
 
 ### Will figure it out

@@ -19,7 +19,7 @@ const Page = component(({ currentPath, currentLanguage, title }) => {
         <Canonical currentRoute={currentRoute} currentLanguage={currentLanguage} />
         <LinkedData currentRoute={currentRoute} />
 
-        <link rel='shortcut icon' href='/public/favicon.ico' />
+        <link rel='shortcut icon' href='/favicon.ico' />
         <script type='module' src='/assets/index.js' defer />
         ___styleTags
       </head>

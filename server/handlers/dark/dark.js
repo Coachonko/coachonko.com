@@ -34,8 +34,9 @@ export async function dark (elysiaContext) {
 
     const body = `<!DOCTYPE html>${page.replace('___app', app).replace('___styleTags', styleTags)}`
 
-    elysiaContext.set.headers['Content-Type'] = 'text/html'
-    return body
+    // elysiaContext.set.headers['Content-Type'] = 'text/html'
+    // return body
+    return new Response(body, { headers: { 'Content-Type': 'text/html' } })
   } catch (err) {
     console.error(err)
   } finally {

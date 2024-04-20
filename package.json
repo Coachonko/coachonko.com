@@ -7,9 +7,12 @@
   "scripts": {
     "clean": "rm -rf ./build",
     "test": "bun test",
-    "build:common": "bun build ./src/index.jsx --public-path=/assets/ --outdir ./build --entry-naming [name].[ext] --splitting",
-    "build": "bun clean && bun run build:common --minify --sourcemap=external",
-    "dev:browser": "bun clean && bun run build:common --watch",
+    "sitemaps": "bun run ./scripts/sitemaps.js",
+    "compress": "find ./build -type f \\( -name '*.xml' -o -name '*.js' -o -name '*.js.map' \\) -exec gzip --keep --best {} \\;",
+    "copy:public": "cp -r public/* build/",
+    "build:common": "bun build ./src/index.jsx --outdir ./build/assets --public-path /assets/ --entry-naming [name].[ext] --splitting",
+    "build": "bun run clean && bun run build:common --minify --sourcemap=external && bun run copy:public && bun run sitemaps && bun run compress",
+    "dev:browser": "bun run clean && mkdir build && bun run copy:public && bun run sitemaps && bun run build:common --watch",
     "dev:server": "bun run --watch ./server/index.js",
     "start": "bun run ./server/index.js"
   },

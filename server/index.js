@@ -1,13 +1,14 @@
 import Elysia from 'elysia'
 
 import { dark } from './handlers/dark'
-import { staticFile } from './handlers/staticFiles'
-import { generateSitemaps } from './sitemaps'
+import { tryFiles } from './handlers/tryFiles'
 
-await generateSitemaps()
+const app = new Elysia()
 
-new Elysia()
-  .get('/assets/*', async (elysiaContext) => staticFile(elysiaContext, '/assets'))
-  .get('/public/*', async (elysiaContext) => staticFile(elysiaContext, '/public'))
-  .get('*', async (elysiaContext) => dark(elysiaContext))
-  .listen(process.env.PORT)
+if (process.env.BUN_ENV === 'production') {
+  app.get('*', (ctx) => dark(ctx))
+} else {
+  app.get('*', (ctx) => tryFiles(ctx, 'build', dark))
+}
+
+app.listen(process.env.PORT)

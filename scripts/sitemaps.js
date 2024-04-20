@@ -5,8 +5,8 @@ import { config } from '../src/config'
 
 export async function generateSitemaps () {
   const paths = {
-    index: '/public/sitemap-index.xml',
-    static: '/public/static-pages-sitemap.xml',
+    index: '/build/sitemap-index.xml',
+    static: '/build/static-pages-sitemap.xml',
     dynamic: null // path of the route that will serve dynamic pages sitemap
   }
   try {
@@ -74,3 +74,5 @@ async function generateStaticPagesSitemap (paths) {
   writer.write('</urlset>')
   writer.end()
 }
+
+await generateSitemaps()
