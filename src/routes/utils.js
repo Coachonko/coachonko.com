@@ -1,6 +1,5 @@
 import { detectIsString } from '@dark-engine/core'
 
-import { baseRoutes } from './baseRoutes'
 import { languages, defaultLanguage, isAlternateLanguage } from '../translations'
 
 // getBasePathname removes the language prefix from a pathname if it is present.
@@ -25,18 +24,6 @@ export function getBasePathname (pathname) {
   return pathname
 }
 
-// matchBaseRoute returns a baseRoute if path matches baseRoute.path. Returns null otherwise.
-export function matchBaseRoute (pathname) {
-  for (let i = 0, len = baseRoutes.length; i < len; i++) {
-    const route = baseRoutes[i]
-    const basePathname = getBasePathname(pathname)
-    if (basePathname === route.path) {
-      return route
-    }
-  }
-  return null
-}
-
 // getHomePath returns the home path for the given language
 // Returns `/${language}/` for alternate languages.
 // Returns `/` for defaultLanguage and unsupported languages.
@@ -54,11 +41,11 @@ export function getHomePath (language) {
 
 // getAlternatePaths returns all paths for a translated route.
 // Paths returned are absolute.
-export function getAlternatePaths (currentBaseRoute) {
+export function getAlternatePaths (pathname) {
   const result = {}
-  const basePath = currentBaseRoute.path
-  result[defaultLanguage] = basePath
-  if (basePath === '/') {
+  const basePathname = getBasePathname(pathname)
+  result[defaultLanguage] = basePathname
+  if (basePathname === '/') {
     for (let i = 1, len = languages.length; i < len; i++) {
       const language = languages[i]
       result[language] = `/${language}`
@@ -66,7 +53,7 @@ export function getAlternatePaths (currentBaseRoute) {
   } else {
     for (let i = 1, len = languages.length; i < len; i++) {
       const language = languages[i]
-      result[language] = `/${language}${basePath}`
+      result[language] = `/${language}${basePathname}`
     }
   }
   return result

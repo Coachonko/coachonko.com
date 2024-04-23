@@ -2,7 +2,6 @@ import { detectIsUndefined, detectIsNull } from '@dark-engine/core'
 
 import { languages } from './languages'
 import { titles } from './titles'
-import { matchBaseRoute } from '../routes/utils.js'
 
 export const defaultLanguage = languages[0]
 
@@ -63,6 +62,7 @@ export function getLanguageFromPathname (pathname) {
   return defaultLanguage
 }
 
+// TODO fix: broken since removal of matchBaseRoute
 // getTitleFromPathname returns the title of the given pathname.
 export function getTitleFromPathname (pathname) {
   const language = getLanguageFromPathname(pathname)
