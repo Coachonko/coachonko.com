@@ -1,5 +1,6 @@
-import { detectIsUndefined, detectIsNull } from '@dark-engine/core'
+import { detectIsUndefined } from '@dark-engine/core'
 
+import { getBasePathname } from '../routes/utils.js'
 import { languages } from './languages'
 import { titles } from './titles'
 
@@ -62,21 +63,17 @@ export function getLanguageFromPathname (pathname) {
   return defaultLanguage
 }
 
-// TODO fix: broken since removal of matchBaseRoute
 // getTitleFromPathname returns the title of the given pathname.
 export function getTitleFromPathname (pathname) {
   const language = getLanguageFromPathname(pathname)
-  const baseRoute = matchBaseRoute(pathname)
-  if (detectIsNull(baseRoute)) {
-    return getTitle()
+  // handle hamepages
+  const basePathname = getBasePathname(pathname)
+  if (basePathname === '/') {
+    return getTitle('home', language)
   }
 
-  const seoString = baseRoute.seo
-  if (detectIsUndefined(seoString)) {
-    return getTitle()
-  }
-
-  return getTitle(seoString, language)
+  const lastPathnameSegment = basePathname.substring(basePathname.lastIndexOf('/') + 1)
+  return getTitle(lastPathnameSegment, language)
 }
 
 // Note: string literals are used so that Bun can import these files as assets.

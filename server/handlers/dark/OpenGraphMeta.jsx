@@ -1,15 +1,14 @@
-import { component, detectIsUndefined } from '@dark-engine/core'
+import { component, detectIsNull, detectIsUndefined } from '@dark-engine/core'
 
 import { config } from '../../../src/config'
 
 // https://ogp.me/
-const OpenGraphMeta = component(({ currentRoute, currentLanguage, getMetaWithLanguage, title, description }) => {
-  const seoString = currentRoute.seo
-  if (detectIsUndefined(seoString)) {
+const OpenGraphMeta = component(({ metaKey, currentPath, currentLanguage, getMetaWithLanguage, title, description }) => {
+  if (detectIsNull(metaKey)) {
     return null
   }
 
-  const currentUrl = `${config.BASE_URL}${currentRoute.path}`
+  const currentUrl = `${config.BASE_URL}${currentPath}`
   const ogTitle = getMetaWithLanguage('ogTitle') || title
   const ogType = getMetaWithLanguage('ogType')
   const ogImage = getMetaWithLanguage('image')
@@ -24,7 +23,7 @@ const OpenGraphMeta = component(({ currentRoute, currentLanguage, getMetaWithLan
     <>
       <meta property='og:title' content={title} />
       <meta property='og:type' content={ogType} />
-      <meta property='og:image' content={`${config.BASE_URL}/public/${ogImage}`} />
+      <meta property='og:image' content={`${config.BASE_URL}/${ogImage}`} />
       <meta property='og:url' content={currentUrl} />
 
       <meta property='og:description' content={ogDescription} />

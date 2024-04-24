@@ -4,12 +4,12 @@ import { config } from '../../../src/config'
 import { languages } from '../../../src/translations'
 import { getAlternatePaths } from '../../../src/routes'
 
-const Canonical = component(({ currentRoute, currentLanguage }) => {
-  if (detectIsNull(currentRoute)) {
+const Canonical = component(({ currentPath, metaKey, currentLanguage }) => {
+  if (detectIsNull(metaKey)) {
     return null
   }
 
-  const currentUrl = `${config.BASE_URL}${currentRoute.path}`
+  const currentUrl = `${config.BASE_URL}${currentPath}`
   if (languages.length === 1) {
     return <link rel='canonical' href={currentUrl} />
   }
@@ -18,7 +18,7 @@ const Canonical = component(({ currentRoute, currentLanguage }) => {
   links.push(<link rel='canonical' href={currentUrl} />)
   links.push(<link rel='alternate' hreflang={currentLanguage} href={currentUrl} />)
 
-  const alternatePaths = getAlternatePaths(currentRoute)
+  const alternatePaths = getAlternatePaths(currentPath)
   for (let i = 0, len = languages.length; i < len; i++) {
     const language = languages[i]
     if (language === currentLanguage) {

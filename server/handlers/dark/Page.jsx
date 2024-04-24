@@ -1,12 +1,14 @@
 import { component } from '@dark-engine/core'
 
-import { matchBaseRoute } from '../../../src/routes'
 import LinkedData from './LinkedData'
 import Canonical from './Canonical'
 import Meta from './Meta'
+import { getBasePathname } from '../../../src/routes/utils'
+import { pathnameHasMeta } from './utils'
 
 const Page = component(({ currentPath, currentLanguage, title }) => {
-  const currentRoute = matchBaseRoute(currentPath)
+  const basePathname = getBasePathname(currentPath)
+  const metaKey = pathnameHasMeta(basePathname)
   return (
     <html lang={currentLanguage}>
       <head>
@@ -15,9 +17,18 @@ const Page = component(({ currentPath, currentLanguage, title }) => {
         <base href='/' />
         <title>{title}</title>
 
-        <Meta currentRoute={currentRoute} currentLanguage={currentLanguage} title={title} />
-        <Canonical currentRoute={currentRoute} currentLanguage={currentLanguage} />
-        <LinkedData currentRoute={currentRoute} />
+        <Meta
+          currentPath={currentPath}
+          metaKey={metaKey}
+          currentLanguage={currentLanguage}
+          title={title}
+        />
+        <Canonical
+          currentPath={currentPath}
+          metaKey={metaKey}
+          currentLanguage={currentLanguage}
+        />
+        <LinkedData metaKey={metaKey} currentLanguage={currentLanguage} />
 
         <link rel='shortcut icon' href='/favicon.ico' />
         <script type='module' src='/assets/index.js' defer />

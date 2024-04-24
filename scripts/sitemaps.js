@@ -1,7 +1,8 @@
-import { detectIsArray, detectIsString, detectIsUndefined } from '@dark-engine/core'
+import { detectIsArray, detectIsString } from '@dark-engine/core'
 
 import { baseRoutes, getAlternatePaths } from '../src/routes'
 import { config } from '../src/config'
+import { routeHasMeta } from '../server/handlers/dark/utils'
 
 export function generateSitemaps () {
   const paths = {
@@ -36,11 +37,18 @@ function generateSitemapIndex (paths) {
   writer.end()
 }
 
-function mergeParentPath (parentPath, childPath) {
+function mergePaths (parentPath, routePath) {
+  // homepages
   if (parentPath === '/') {
-    return childPath
+    return `${parentPath}${routePath}`
   }
-  return `${parentPath}${childPath}`
+
+  // root of nested in Fragment
+  if (routePath === '') {
+    return parentPath
+  }
+
+  return `${parentPath}/${routePath}`
 }
 
 function writeRoutes (writer, routeArray, parentPath) {
@@ -48,13 +56,15 @@ function writeRoutes (writer, routeArray, parentPath) {
     const route = routeArray[i]
     // handle nested routes
     const children = route.children
+    const mergedRoutePath = mergePaths(parentPath, route.path)
     if (detectIsArray(children)) {
-      const routePath = mergeParentPath(parentPath, route.path)
-      writeRoutes(writer, children, routePath)
+      writeRoutes(writer, children, mergedRoutePath)
+      continue
     }
 
     // Skip routes that aren't meant to be indexed
-    if (detectIsUndefined(route.seo)) {
+    const metaKey = routeHasMeta(route.path, mergedRoutePath)
+    if (metaKey === null) {
       continue
     }
 
@@ -63,8 +73,7 @@ function writeRoutes (writer, routeArray, parentPath) {
       continue
     }
 
-    const routePath = mergeParentPath(parentPath, route.path)
-    const alternatePaths = getAlternatePaths(routePath)
+    const alternatePaths = getAlternatePaths(mergedRoutePath)
     for (const language in alternatePaths) {
       writer.write(`<url>
               <loc>${config.BASE_URL}${alternatePaths[language]}</loc>`)

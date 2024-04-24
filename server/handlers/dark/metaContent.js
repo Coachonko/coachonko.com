@@ -12,5 +12,10 @@ export const metaContent = {
     en: {
 
     }
+  },
+  delivery: {
+    en: {
+
+    }
   }
 }

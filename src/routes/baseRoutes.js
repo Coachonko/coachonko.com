@@ -1,35 +1,31 @@
 import { Fragment, lazy } from '@dark-engine/core'
 
-// add a `seo` string to generate SEO-optimized head elements on the server.
+// These paths are nested in the generation step, paths must not be absolute.
 export const baseRoutes = [
   {
-    path: '/',
-    component: lazy(() => import('../pages/Home')),
-    seo: 'home'
+    path: '',
+    component: lazy(() => import('../pages/Home'))
   },
   {
-    path: '/services',
+    path: 'services',
     component: Fragment,
     children: [
       {
-        path: '/',
-        component: lazy(() => import('../pages/Services')),
-        seo: 'services'
+        path: '',
+        component: lazy(() => import('../pages/Services'))
       },
       {
-        path: '/delivery',
-        component: lazy(() => import('../pages/Delivery')),
-        seo: 'delivery'
+        path: 'delivery',
+        component: lazy(() => import('../pages/Delivery'))
       }
     ]
   },
   {
-    path: '/contact',
-    component: lazy(() => import('../pages/Contact')),
-    seo: 'contact'
+    path: 'contact',
+    component: lazy(() => import('../pages/Contact'))
   },
   {
-    path: '/not-found',
+    path: 'not-found',
     component: lazy(() => import('../pages/NotFound'))
   }
 ]

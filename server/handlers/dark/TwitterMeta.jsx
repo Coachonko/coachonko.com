@@ -1,11 +1,10 @@
-import { component, detectIsUndefined } from '@dark-engine/core'
+import { component, detectIsNull, detectIsUndefined } from '@dark-engine/core'
 
 import { config } from '../../../src/config'
 
 // https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/markup
-const TwitterMeta = component(({ currentRoute, getMetaWithLanguage, title, description }) => {
-  const seoString = currentRoute.seo
-  if (detectIsUndefined(seoString)) {
+const TwitterMeta = component(({ metaKey, getMetaWithLanguage, title, description }) => {
+  if (detectIsNull(metaKey)) {
     return null
   }
 

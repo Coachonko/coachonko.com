@@ -1,16 +1,16 @@
-import { component, detectIsUndefined, detectIsNull } from '@dark-engine/core'
+import { component, detectIsNull } from '@dark-engine/core'
 
 import OpenGraphMeta from './OpenGraphMeta'
 import TwitterMeta from './TwitterMeta'
 import { getMeta } from './utils'
 
-const Meta = component(({ currentRoute, currentLanguage, title }) => {
-  if (detectIsNull(currentRoute) || detectIsUndefined(currentRoute.seo)) {
+const Meta = component(({ currentPath, metaKey, currentLanguage, title }) => {
+  if (detectIsNull(metaKey)) {
     return <meta name='robots' content='noindex, nofollow' />
   }
 
   const getMetaWithLanguage = (name) => {
-    return getMeta(currentRoute, currentLanguage, name)
+    return getMeta(metaKey, currentLanguage, name)
   }
 
   const description = getMetaWithLanguage('description')
@@ -18,13 +18,14 @@ const Meta = component(({ currentRoute, currentLanguage, title }) => {
     <>
       <meta name='description' content={description} />
       <TwitterMeta
-        currentRoute={currentRoute}
+        metaKey={metaKey}
         getMetaWithLanguage={getMetaWithLanguage}
         title={title}
         description={description}
       />
       <OpenGraphMeta
-        currentRoute={currentRoute}
+        metaKey={metaKey}
+        currentPath={currentPath}
         currentLanguage={currentLanguage}
         getMetaWithLanguage={getMetaWithLanguage}
         title={title}

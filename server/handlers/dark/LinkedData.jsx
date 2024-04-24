@@ -1,4 +1,4 @@
-import { component, detectIsNull, detectIsUndefined } from '@dark-engine/core'
+import { component, detectIsNull } from '@dark-engine/core'
 
 import { config } from '../../../src/config'
 
@@ -9,17 +9,12 @@ function scriptProps (data) {
   }
 }
 
-const LinkedData = component(({ currentRoute }) => {
-  if (detectIsNull(currentRoute)) {
+const LinkedData = component(({ metaKey }) => {
+  if (detectIsNull(metaKey)) {
     return null
   }
 
-  const seoString = currentRoute.seo
-  if (detectIsUndefined(seoString)) {
-    return null
-  }
-
-  if (seoString === 'contact') {
+  if (metaKey === 'contact') {
     const data = {
       '@context': 'https://schema.org',
       '@type': 'Person',

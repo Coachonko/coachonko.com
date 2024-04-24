@@ -4,22 +4,37 @@ import { metaContent } from './metaContent'
 import it from '../../../src/translations/messages/it'
 import en from '../../../src/translations/messages/en'
 
-export function getMeta (route, language, name) {
+export function pathnameHasMeta (pathname) {
+  if (pathname === '/') {
+    return 'home'
+  }
+
+  const metaKey = pathname.substring(pathname.lastIndexOf('/') + 1)
+  if (metaContent[metaKey]) {
+    return metaKey
+  }
+  return null
+}
+
+// routeHasMeta returns the key of the meta object if the route has meta data. Returns null otherwise.
+export function routeHasMeta (routePath, mergedRoutePath) {
+  if (routePath === '' && mergedRoutePath === '/') {
+    return 'home'
+  }
+
+  if (detectIsUndefined(metaContent[routePath])) {
+    return null
+  }
+  return routePath
+}
+
+export function getMeta (metaKey, language, name) {
   const fallback = metaContent.fallback[name]
-  if (detectIsNull(route)) {
+  if (detectIsNull(metaKey)) {
     return fallback
   }
 
-  const seoString = route.seo
-  if (detectIsUndefined(seoString)) {
-    return fallback
-  }
-
-  const seoObject = metaContent[seoString]
-  if (detectIsUndefined(seoObject)) {
-    return fallback
-  }
-
+  const seoObject = metaContent[metaKey]
   const inLanguage = seoObject[language]
   if (detectIsUndefined(inLanguage)) {
     return fallback
