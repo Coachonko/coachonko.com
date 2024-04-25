@@ -1,6 +1,6 @@
 import { component } from '@dark-engine/core'
 
-import LanguageSelector from './LanguageSelector'
+import LanguageSelector from '../components/LanguageSelector'
 
 const FooterNav = component(() => {
   return (

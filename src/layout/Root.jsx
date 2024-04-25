@@ -1,8 +1,8 @@
 import { component } from '@dark-engine/core'
 import { createGlobalStyle } from '@dark-engine/styled'
 
-import ChangeTitle from './ChangeTitle'
-import ScrollToTop from './ScrollToTop'
+import ChangeTitle from '../components/ChangeTitle'
+import ScrollToTop from '../components/ScrollToTop'
 import HeaderNav from './HeaderNav'
 import Copyright from './Copyright'
 import FooterNav from './FooterNav'

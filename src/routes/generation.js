@@ -1,6 +1,6 @@
 import { Fragment } from '@dark-engine/core/jsx-runtime'
 
-import Root from '../components/Root'
+import Root from '../layout/Root'
 import { baseRoutes } from './baseRoutes'
 import { languages } from '../translations'
 

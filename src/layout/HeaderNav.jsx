@@ -3,7 +3,7 @@ import { Link, useLocation } from '@dark-engine/web-router'
 
 import { getHomePath } from '../routes'
 import { getLanguageFromPathname } from '../translations'
-import LanguageSelector from './LanguageSelector'
+import LanguageSelector from '../components/LanguageSelector'
 
 const HeaderNav = component(() => {
   const { pathname } = useLocation()
