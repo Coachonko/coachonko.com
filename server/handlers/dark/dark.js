@@ -22,7 +22,7 @@ export async function dark (elysiaContext) {
         translator={translator}
       />
     ))
-    const styleTags = sheet.getStyleTags()
+    const styleTags = sheet.getStyleTags().join('')
 
     const page = await renderToString(
       <Page
