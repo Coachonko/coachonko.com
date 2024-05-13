@@ -5,29 +5,36 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "clean": "rm -rf ./build",
+    "clean:browser": "rm -rf ./build/browser",
+    "clean:server": "rm -rf ./build/server",
+    "clean:all": "rm -rf ./build",
     "test": "bun test",
     "sitemaps:generate": "bun run ./scripts/sitemaps.js",
-    "sitemaps:minify": "for file in .\/build\/*.xml; do awk '{gsub(\/>\\s+<\/,\"><\")}1' \"$file\" | tr -s ' ' | tr -d '\\n' | sed 's\/> *<\/><\/g' > \"$file.tmp\" && mv \"$file.tmp\" \"$file\"; done",
+    "sitemaps:minify": "for file in .\/build\/browser\/*.xml; do [ -e \"$file\" ] && awk '{gsub(\/>\\s+<\/,\"><\")}1' \"$file\" | tr -s ' ' | tr -d '\\n' | sed 's\/> *<\/><\/g' > \"$file.tmp\" && mv \"$file.tmp\" \"$file\"; done",
     "sitemaps": "bun run sitemaps:generate && bun run sitemaps:minify",
-    "compress": "find ./build -type f \\( -name '*.xml' -o -name '*.js' -o -name '*.js.map' \\) -exec gzip --keep --best {} \\;",
-    "copy:public": "cp -r public/* build/",
-    "build:common": "bun build ./src/index.jsx --outdir ./build/assets --public-path /assets/ --entry-naming [name].[ext] --splitting",
-    "build": "bun run clean && bun run build:common --minify --sourcemap=external && bun run copy:public && bun run sitemaps && bun run compress",
-    "dev:browser": "bun run clean && mkdir build && bun run copy:public && bun run sitemaps && bun run build:common --watch",
-    "dev:server": "bun run --watch ./server/index.js",
-    "start": "bun run ./server/index.js"
+    "compress": "find ./build/browser -type f \\( -name '*.xml' -o -name '*.js' -o -name '*.js.map' \\) -exec gzip --keep --best {} \\;",
+    "copy:public": "cp -r public/* build/browser",
+    "build:browser": "bun build ./src/shared/index.jsx --outdir ./build/browser/_dark/ --public-path /_dark/ --entry-naming [name].[ext] --splitting",
+    "build:server": "bun build ./src/server/index.jsx --outdir ./build/server --target=bun --public-path /_dark/",
+    "build": "bun run clean:all && bun run build:browser --minify --sourcemap=external && bun run build:server && bun run copy:public && bun run sitemaps && bun run compress",
+    "start": "bun run ./server.js",
+    "dev:browser": "mkdir -p build/browser && bun run copy:public && bun run sitemaps && bun run build:browser --watch",
+    "dev:server": "bun run build:server --watch",
+    "dev:start": "while [ ! -f ./build/server/index.js ]; do sleep 0.5; done && bun run --watch ./build/server/index.js",
+    "dev": "bun run clean:all && (bun run dev:browser & pid_browser=$; bun run dev:server & pid_server=$; bun run dev:start & pid_start=$; wait; kill $pid_browser $pid_server $pid_start)"
   },
   "devDependencies": {
     "standard": "^17.1.0"
   },
   "dependencies": {
+    "@dark-engine/animations": "^1.2.0",
     "@dark-engine/core": "^1.2.0",
+    "@dark-engine/data": "^1.2.0",
     "@dark-engine/platform-browser": "^1.2.0",
     "@dark-engine/platform-server": "^1.2.0",
     "@dark-engine/styled": "^1.2.0",
     "@dark-engine/web-router": "^1.2.0",
     "@wareme/translations": "3.7.2",
-    "elysia": "^1.0.13"
+    "elysia": "^1.0.20"
   }
 }

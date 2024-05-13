@@ -1,13 +1,13 @@
 import { detectIsArray, detectIsString } from '@dark-engine/core'
 
-import { baseRoutes, getAlternatePaths } from '../src/routes'
-import { config } from '../src/config'
-import { routeHasMeta } from '../server/handlers/dark/utils'
+import { baseRoutes, getAlternatePaths } from '../src/shared/routes'
+import { config } from '../src/shared/config'
+import { routeHasMeta } from '../src/server/utils'
 
 export function generateSitemaps () {
   const paths = {
-    index: '/build/sitemap-index.xml',
-    static: '/build/sitemap-static.xml',
+    index: '/build/browser/sitemap-index.xml',
+    static: '/build/browser/sitemap-static.xml',
     dynamic: null // path of the route that will serve dynamic pages sitemap
   }
   try {

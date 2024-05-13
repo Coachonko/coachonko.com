@@ -9,18 +9,28 @@
 - ~~i18n solution~~
 - ~~sitemaps~~
 - ~~linked data~~
+- ~~SSR~~
+  - ~~server-generated import paths differ from those in browser bundle: build server~~
 
 #### Bugs
 
+### High priority
 
+- services
+  - ~~nested routes~~
+  - ~~linked data~~
+
+### Medium priority
+
+- No page transition on language change
+
+### Low priority
+
+- newsletter
 
 ### Optimizations
 
 - more tests
-
-### Will figure it out
-
-- test deploy with bun + systemd
 
 ## Problems
 
