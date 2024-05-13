@@ -28,36 +28,6 @@ export const metaContent = {
     it: {},
     nl: {}
   },
-  installation: {
-    en: {},
-    it: {},
-    nl: {}
-  },
-  revitalization: {
-    en: {},
-    it: {},
-    nl: {}
-  },
-  restoration: {
-    en: {},
-    it: {},
-    nl: {}
-  },
-  valuation: {
-    en: {},
-    it: {},
-    nl: {}
-  },
-  consulting: {
-    en: {},
-    it: {},
-    nl: {}
-  },
-  'trade-in': {
-    en: {},
-    it: {},
-    nl: {}
-  },
   contact: {
     en: {},
     it: {},
