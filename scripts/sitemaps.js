@@ -1,23 +1,24 @@
-import { detectIsString, detectIsUndefined } from '@dark-engine/core'
+import { detectIsArray, detectIsString } from '@dark-engine/core'
 
-import { baseRoutes, getAlternatePaths } from '../src/routes'
-import { config } from '../src/config'
+import { baseRoutes, getAlternatePaths } from '../src/shared/routes'
+import { config } from '../src/shared/config'
+import { routeHasMeta } from '../src/server/utils'
 
-export async function generateSitemaps () {
+export function generateSitemaps () {
   const paths = {
-    index: '/build/sitemap-index.xml',
-    static: '/build/static-pages-sitemap.xml',
+    index: '/build/browser/sitemap-index.xml',
+    static: '/build/browser/sitemap-static.xml',
     dynamic: null // path of the route that will serve dynamic pages sitemap
   }
   try {
-    await generateSitemapIndex(paths)
-    await generateStaticPagesSitemap(paths)
+    generateSitemapIndex(paths)
+    generateStaticPagesSitemap(paths)
   } catch (err) {
     console.error(err)
   }
 }
 
-async function generateSitemapIndex (paths) {
+function generateSitemapIndex (paths) {
   const indexPath = `${process.cwd()}${paths.index}`
   const file = Bun.file(indexPath)
   const writer = file.writer()
@@ -36,18 +37,34 @@ async function generateSitemapIndex (paths) {
   writer.end()
 }
 
-async function generateStaticPagesSitemap (paths) {
-  const staticPath = `${process.cwd()}${paths.static}`
-  const file = Bun.file(staticPath)
-  const writer = file.writer()
-  writer.write(`<?xml version="1.0" encoding="UTF-8"?>
-      <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xhtml="http://www.w3.org/1999/xhtml">`)
+function mergePaths (parentPath, routePath) {
+  // homepages
+  if (parentPath === '/') {
+    return `${parentPath}${routePath}`
+  }
 
-  for (let i = 0, len = baseRoutes.length; i < len; i++) {
-    const route = baseRoutes[i]
+  // root of nested in Fragment
+  if (routePath === '') {
+    return parentPath
+  }
+
+  return `${parentPath}/${routePath}`
+}
+
+function writeRoutes (writer, routeArray, parentPath) {
+  for (let i = 0, len = routeArray.length; i < len; i++) {
+    const route = routeArray[i]
+    // handle nested routes
+    const children = route.children
+    const mergedRoutePath = mergePaths(parentPath, route.path)
+    if (detectIsArray(children)) {
+      writeRoutes(writer, children, mergedRoutePath)
+      continue
+    }
+
     // Skip routes that aren't meant to be indexed
-    if (detectIsUndefined(route.seo)) {
+    const metaKey = routeHasMeta(route.path, mergedRoutePath)
+    if (metaKey === null) {
       continue
     }
 
@@ -56,7 +73,7 @@ async function generateStaticPagesSitemap (paths) {
       continue
     }
 
-    const alternatePaths = getAlternatePaths(route)
+    const alternatePaths = getAlternatePaths(mergedRoutePath)
     for (const language in alternatePaths) {
       writer.write(`<url>
               <loc>${config.BASE_URL}${alternatePaths[language]}</loc>`)
@@ -71,8 +88,21 @@ async function generateStaticPagesSitemap (paths) {
       writer.write('</url>')
     }
   }
+}
+
+function generateStaticPagesSitemap (paths) {
+  const staticPath = `${process.cwd()}${paths.static}`
+  const file = Bun.file(staticPath)
+  const writer = file.writer()
+  writer.write(`<?xml version="1.0" encoding="UTF-8"?>
+      <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xhtml="http://www.w3.org/1999/xhtml">`)
+
+  const parentPath = '/'
+  writeRoutes(writer, baseRoutes, parentPath)
+
   writer.write('</urlset>')
   writer.end()
 }
 
-await generateSitemaps()
+generateSitemaps()
