@@ -1,6 +1,6 @@
 import { component } from '@dark-engine/core'
 
-import GlobalStyle from './GlobalStyle'
+import GlobalStyle from '../styles/GlobalStyle'
 import ChangeTitle from './ChangeTitle'
 import ScrollToTop from './ScrollToTop'
 import PageTransition from './PageTransition'

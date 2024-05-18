@@ -58,3 +58,13 @@ export function getAlternatePaths (pathname) {
   }
   return result
 }
+
+export function isAlternatePath (pathnameOne, pathnameTwo) {
+  const alternatesOfOne = getAlternatePaths(pathnameOne)
+  for (const lang in alternatesOfOne) {
+    if (pathnameTwo === alternatesOfOne[lang]) {
+      return true
+    }
+  }
+  return false
+}

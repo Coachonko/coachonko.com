@@ -1,36 +1,36 @@
-import { component } from '@dark-engine/core'
+import { component, useRef } from '@dark-engine/core'
 import { styled } from '@dark-engine/styled'
 
-import HeaderNav from './HeaderNav'
+import Header from './Header'
 import FooterMain from './FooterMain'
 import FooterBottom from './FooterBottom'
 import { FlexColumn } from '../styles/utils'
 
-const StyledHeader = styled.header`
-  position: absolute;
-  inset: 0;
-  height: 5svh;
-  display: flex;
-  align-items: center;
+const StyledMain = styled.main`
+  padding: var(--header-padding) 0 0;
 `
 
-const StyledMain = styled.main`
-  margin-top: 5svh;
+const ScrollRoot = styled.div`
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
 `
 
 const AppLayout = component(({ slot }) => {
+  const scrollRef = useRef(null)
+
   return (
     <>
-      <StyledHeader>
-        <HeaderNav />
-      </StyledHeader>
-      <StyledMain>
-        {slot}
-      </StyledMain>
-      <FlexColumn as='footer'>
-        <FooterMain />
-        <FooterBottom />
-      </FlexColumn>
+      <Header scrollRef={scrollRef} />
+      <ScrollRoot ref={scrollRef}>
+        <StyledMain>
+          {slot}
+        </StyledMain>
+        <FlexColumn as='footer'>
+          <FooterMain />
+          <FooterBottom />
+        </FlexColumn>
+      </ScrollRoot>
     </>
   )
 })

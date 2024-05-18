@@ -5,6 +5,7 @@ import { useTranslation } from '@wareme/translations'
 import { config } from '../config'
 import { formattedPhoneNumber } from '../utils/phone'
 import { FlexRow, FlexColumn } from '../styles/utils'
+import { colors } from '../styles/constants'
 
 const StyledSection = styled(FlexRow)`
   padding: 10svh 2.5vw;
@@ -12,28 +13,30 @@ const StyledSection = styled(FlexRow)`
 `
 
 const StyledSectionColumn = styled(FlexColumn)`
-  min-width: 45%;
-  max-width: 45%;
+  flex: 1;
 `
 
 const Title = styled.h1`
-  font-weight: inherit;
-  font-size: 900%; // TODO fluid: depend on vw, but keep using html font-size 100%
+  font-weight: 300;
+  font-size: 9.6vw;
   line-height: .9;
   margin: 0;
   padding: 0 0 2svh;
 `
 
-const StyledFlexRow = styled(FlexRow)`
+const LinksRow = styled(FlexRow)`
   justify-content: space-between;
+  gap: 2.5vw;
 `
 
 const StyledUl = styled.ul`
   list-style-type: none;
   padding: 0;
   margin: 0;
+  width: 100%;
   & li {
     list-style: none;
+    border-bottom: var(--border-style);
   }
 `
 
@@ -41,6 +44,16 @@ const StyledA = styled.a`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  text-decoration: none;
+  font-weight: 300;
+  color: ${colors.black};
+  padding: .5vw 0;
+  transition: color .2s, background-color .2s, padding .3s;
+  &:hover {
+    color: ${colors.white};
+    background-color: ${colors.black};
+    padding: .5vw;
+  }
 `
 
 const Contact = component(() => {
@@ -53,7 +66,7 @@ const Contact = component(() => {
       </StyledSectionColumn>
 
       <StyledSectionColumn>
-        <StyledFlexRow>
+        <LinksRow>
           <StyledUl>
             <li>
               <StyledA href={`tel:${config.CONTACT_PHONE}`}>
@@ -88,7 +101,7 @@ const Contact = component(() => {
               </StyledA>
             </li>
           </StyledUl>
-        </StyledFlexRow>
+        </LinksRow>
 
         <FlexRow>
           form
