@@ -12,15 +12,15 @@ const StyledHeader = styled.header`
   z-index: ${zIndex.header};
   inset: 0 0 auto;
   padding: 1vw 0;
-  ${({ isAtTop }) => {
-    if (isAtTop === true) {
+  ${({ $isAtTop }) => {
+    if ($isAtTop === true) {
       return css`
       background-color: ${colors.white}00;
     `
     }
   }}
-  ${({ isVisible }) => {
-    if (isVisible === true) {
+  ${({ $isVisible }) => {
+    if ($isVisible === true) {
       return css`
         transform: translateY(0);
       `
@@ -53,10 +53,7 @@ const Header = component(({ scrollRef }) => {
   }, [])
 
   return (
-    <StyledHeader
-      isVisible={isVisible}
-      isAtTop={isAtTop}
-    >
+    <StyledHeader $isVisible={isVisible} $isAtTop={isAtTop}>
       <HeaderNav />
     </StyledHeader>
   )
