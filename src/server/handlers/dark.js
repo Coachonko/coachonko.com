@@ -17,7 +17,7 @@ const renderApp = async (currentPath, translator) => {
       translator={translator}
     />
   ))
-  const styleTags = sheet.getStyleTags().join('')
+  const styleTags = sheet.getStyleTags()
   sheet.seal()
   return { app, styleTags }
 }

@@ -27,14 +27,16 @@
     "standard": "^17.1.0"
   },
   "dependencies": {
-    "@dark-engine/animations": "^1.2.0",
-    "@dark-engine/core": "^1.2.0",
-    "@dark-engine/data": "^1.2.0",
-    "@dark-engine/platform-browser": "^1.2.0",
-    "@dark-engine/platform-server": "^1.2.0",
-    "@dark-engine/styled": "^1.2.0",
-    "@dark-engine/web-router": "^1.2.0",
-    "@wareme/translations": "3.7.2",
+    "@dark-engine/animations": "^1.4.0",
+    "@dark-engine/core": "^1.4.0",
+    "@dark-engine/data": "^1.4.0",
+    "@dark-engine/platform-browser": "^1.4.0",
+    "@dark-engine/platform-server": "^1.4.0",
+    "@dark-engine/styled": "^1.4.0",
+    "@dark-engine/web-router": "^1.4.0",
+    "@wareme/translations": "^3.8.0",
+    "@wareme/use-in-view": "^3.1.0",
+    "@wareme/use-scrollbar-width": "^3.0.1",
     "elysia": "^1.0.20"
   }
 }

@@ -4,13 +4,12 @@ import { useLocation } from '@dark-engine/web-router'
 import { styled } from '@dark-engine/styled'
 
 import { isAlternatePath } from '../routes/utils'
-import { colors } from '../styles/constants'
 import { detectIsBrowser } from '@dark-engine/platform-browser'
 
 const StyledDiv = styled.div`
   position: absolute; // overlap bottom layer
   inset: 0; // cover entire viewport
-  background-color: ${colors.white}; // cover bottom layer
+  background-color: ${props => props.theme.white}; // cover bottom layer
   width: 100%;
 `
 

@@ -2,7 +2,7 @@ import { component, useEffect, useState } from '@dark-engine/core'
 import { Link } from '@dark-engine/web-router'
 import { styled, css } from '@dark-engine/styled'
 import { useTranslation } from '@wareme/translations'
-import { useInView } from '@wareme/intersection-observer'
+import { useInView } from '@wareme/use-in-view'
 
 const StyledLink = styled(Link)`
   color: inherit;
@@ -11,15 +11,15 @@ const StyledLink = styled(Link)`
 
 const StyledSection = styled.section`
   pointer-events: none; // pointer-events: auto; breaks the Link component. Is this a bug in Dark?
-  border-bottom: var(--border-style);
+  border-bottom: ${props => props.theme.borderStyle};
   margin: 0 2.5vw;
   padding: 2.5vw 0;
   // intersection-observer
   opacity: 0;
   transform: translateY(3rem);
   transition: transform .8s;
-  ${({ inView }) => {
-    if (inView === true) {
+  ${({ $inView }) => {
+    if ($inView === true) {
       return css`
         opacity: 1;
         transform: translateY(0);
@@ -47,7 +47,6 @@ const ServiceTitle = styled.h2`
 
 const ServiceDescription = styled.p`
   padding: 0 10vw 0 0;
-  font-weight: 300;
 `
 
 const ServiceImage = styled.img`
@@ -68,7 +67,7 @@ const ServiceSection = component(({ name, to }) => {
 
   return (
     <StyledLink to={to}>
-      <StyledSection ref={ref} inView={isVisible}>
+      <StyledSection ref={ref} $inView={isVisible}>
         <ServiceInfo>
           <ServiceTitle>{t('title')}</ServiceTitle>
           <ServiceDescription>{t('description')}</ServiceDescription>

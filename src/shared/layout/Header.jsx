@@ -1,47 +1,49 @@
 import { component, useState, useRef, useEffect } from '@dark-engine/core'
 import { styled, css } from '@dark-engine/styled'
+import { useScrollbarWidth } from '@wareme/use-scrollbar-width'
 
 import HeaderNav from './HeaderNav'
-import { colors, zIndex } from '../styles/constants'
 
 const StyledHeader = styled.header`
   position: absolute;
   transition: transform .3s, background-color .3s;
   transform: translateY(-100%);
-  background-color: ${colors.white};
-  z-index: ${zIndex.header};
-  inset: 0 0 auto;
-  padding: 1vw 0;
-  ${({ $isAtTop }) => {
-    if ($isAtTop === true) {
-      return css`
-      background-color: ${colors.white}00;
-    `
+  background-color: ${props => props.theme.white}00;
+  z-index: ${props => props.theme.zHeader};
+  ${props => {
+    if (props.$scrollbarWidth === 0) {
+      return css`inset: 0 0 auto;`
     }
-  }}
-  ${({ $isVisible }) => {
-    if ($isVisible === true) {
+    return css`inset: 0 ${props.$scrollbarWidth}px auto 0;`
+  }};
+  ${props => {
+    if (props.$isVisible === true) {
       return css`
         transform: translateY(0);
+        background-color: ${props.theme.white};
       `
     }
   }};
+  height: ${props => props.theme.headerHeight};
+
+  @media (min-width: ${props => props.theme.sm}) {
+    height: ${props => props.theme.headerHeightSm};
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    transform: translateY(0);
-    background-color: ${colors.white};
+    transition: none;
   }
 `
 
 const Header = component(({ scrollRef }) => {
+  const scrollbarWidth = useScrollbarWidth()
   const prevScrollPosition = useRef(0)
-  const [isAtTop, setIsAtTop] = useState(true)
   const [isVisible, setIsVisible] = useState(true)
 
   useEffect(() => {
     const updateState = () => {
       const currentScrollPosition = scrollRef.current.scrollTop
       const isTop = currentScrollPosition === 0
-      setIsAtTop(isTop)
       setIsVisible(isTop || currentScrollPosition < prevScrollPosition.current)
       prevScrollPosition.current = currentScrollPosition
     }
@@ -53,7 +55,7 @@ const Header = component(({ scrollRef }) => {
   }, [])
 
   return (
-    <StyledHeader $isVisible={isVisible} $isAtTop={isAtTop}>
+    <StyledHeader $isVisible={isVisible} $scrollbarWidth={scrollbarWidth}>
       <HeaderNav />
     </StyledHeader>
   )

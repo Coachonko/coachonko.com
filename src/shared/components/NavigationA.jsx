@@ -6,7 +6,7 @@ import { baseCSS } from './NavigationLink'
 
 const NavigationA = styled.a`
   ${buttonCSS}
-  ${({ disabled }) => disabledCSS({ disabled })}
+  ${({ $disabled }) => disabledCSS({ $disabled })}
   ${() => baseCSS()}
 `
 

@@ -7,15 +7,16 @@ import ServiceSection from '../components/ServiceSection'
 
 const Title = styled.h1`
   font-weight: 300;
-  font-size: 9.6vw;
+  font-size: 9.6vw; // TODO
   line-height: .9;
   margin: 0 2.5vw;
   padding: 0 0 2svh;
-  border-bottom: var(--border-style);
+  border-bottom: ${props => props.theme.borderStyle};
 `
 
 const servicesNames = [
-  'delivery'
+  'delivery',
+  'installation'
 ]
 
 const servicesComponents = (pathname) => {

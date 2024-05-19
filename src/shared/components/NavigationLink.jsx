@@ -13,11 +13,16 @@ export const baseCSS = () => css`
 
   background-position: 100% 100%;
   background-size: 0 1px;
-  @media(hover: hover) {
+
+  @media (hover: hover) {
     &:hover {
       background-position: 0 100%;
       background-size: 100% 1px;
     }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
   }
 
   &:visited, 
@@ -26,12 +31,12 @@ export const baseCSS = () => css`
   }
 `
 
-const activeCSS = ({ active }) => {
-  if (active) {
+const activeCSS = ({ $active }) => {
+  if ($active) {
     return css`
       background-position: 0 100%;
       background-size: 100% 1px;
-      @media(hover: hover) {
+      @media (hover: hover) {
         &:hover {
           background-position: 100% 100%;
           background-size: 0 1px;
@@ -43,14 +48,14 @@ const activeCSS = ({ active }) => {
 
 export const StyledLink = styled(Link)`
   ${buttonCSS}
-  ${({ disabled }) => disabledCSS({ disabled })}
+  ${({ $disabled }) => disabledCSS({ $disabled })}
   ${() => baseCSS()}
-  ${({ active }) => activeCSS({ active })}
+  ${({ $active }) => activeCSS({ $active })}
 `
 
 const NavigationLink = component(({ to, slot, ...rest }) => {
   const { pathname } = useLocation()
-  return <StyledLink active={pathname === to} to={to} {...rest}>{slot}</StyledLink>
+  return <StyledLink $active={pathname === to} to={to} {...rest}>{slot}</StyledLink>
 })
 
 export default NavigationLink

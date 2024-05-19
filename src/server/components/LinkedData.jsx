@@ -4,7 +4,13 @@ import { config } from '../../shared/config'
 import { getHomePath } from '../../shared/routes'
 
 const services = [
-  'delivery'
+  'delivery',
+  'installation',
+  'revitalization',
+  'restoration',
+  'valuation',
+  'consulting',
+  'trade-in'
 ]
 
 function isServicePage (metaKey) {
@@ -40,11 +46,16 @@ function serviceBreadcrumb (metaKey, currentPath, currentLanguage) {
 }
 
 function getServiceLinkedData (metaKey, currentPath, currentLanguage, description) {
+  let areaServed = 'Europe'
+  if (metaKey === 'installation') {
+    areaServed = 'Milano'
+  }
+
   return {
     '@context': 'https://schema.org',
     '@graph': [{
       '@type': 'Service',
-      areaServed: 'Europe',
+      areaServed,
       // TODO
       // audience
       // availableChannel

@@ -5,7 +5,6 @@ import { useTranslation } from '@wareme/translations'
 import { config } from '../config'
 import { formattedPhoneNumber } from '../utils/phone'
 import { FlexRow, FlexColumn } from '../styles/utils'
-import { colors } from '../styles/constants'
 
 const StyledSection = styled(FlexRow)`
   padding: 10svh 2.5vw;
@@ -20,7 +19,6 @@ const Title = styled.h1`
   font-weight: 300;
   font-size: 9.6vw;
   line-height: .9;
-  margin: 0;
   padding: 0 0 2svh;
 `
 
@@ -36,7 +34,7 @@ const StyledUl = styled.ul`
   width: 100%;
   & li {
     list-style: none;
-    border-bottom: var(--border-style);
+    border-bottom: ${props => props.theme.borderStyle};
   }
 `
 
@@ -45,14 +43,16 @@ const StyledA = styled.a`
   justify-content: space-between;
   align-items: center;
   text-decoration: none;
-  font-weight: 300;
-  color: ${colors.black};
+  color: ${props => props.theme.black};
   padding: .5vw 0;
   transition: color .2s, background-color .2s, padding .3s;
   &:hover {
-    color: ${colors.white};
-    background-color: ${colors.black};
+    color: ${props => props.theme.white};
+    background-color: ${props => props.theme.black};
     padding: .5vw;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
   }
 `
 

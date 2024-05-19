@@ -17,6 +17,10 @@ export const baseRoutes = [
       {
         path: 'delivery',
         component: lazy(() => import('../pages/Delivery'))
+      },
+      {
+        path: 'installation',
+        component: lazy(() => import('../pages/Installation'))
       }
     ]
   },

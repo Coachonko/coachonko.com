@@ -7,7 +7,7 @@ import FooterBottom from './FooterBottom'
 import { FlexColumn } from '../styles/utils'
 
 const StyledMain = styled.main`
-  padding: var(--header-padding) 0 0;
+  padding: 6vw 0 0; // TODO
 `
 
 const ScrollRoot = styled.div`
@@ -18,7 +18,6 @@ const ScrollRoot = styled.div`
 
 const AppLayout = component(({ slot }) => {
   const scrollRef = useRef(null)
-
   return (
     <>
       <Header scrollRef={scrollRef} />

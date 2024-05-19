@@ -7,5 +7,4 @@ export const disabledCSS = ({ disabled }) => {
       opacity: .2;
     `
   }
-  return ''
 }
